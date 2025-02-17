@@ -12,6 +12,9 @@ import jakarta.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED) // Stratégie pour l'héritage en base de données
 
 public class Client extends Personne {
+	    @Column 
+	    private String prenom;
+	   
     	@Enumerated(EnumType.STRING)  // Assurez-vous que l'enum est stocké en String
     	@Column
 	    private Genre sexe;
@@ -22,6 +25,12 @@ public class Client extends Personne {
 		}
 		public void setSexe(Genre sexe) {
 			this.sexe = sexe;
+		}
+		public String getPrenom() {
+			return prenom;
+		}
+		public void setPrenom(String prenom) {
+			this.prenom = prenom;
 		}
 		
 		

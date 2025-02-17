@@ -41,7 +41,7 @@ private int qte;
 @Column 
 private double prixFournisseur;
 @Column 
-private double prixClient;
+private double prixVente;
 
 @Column 
 private Couleur couleur;
@@ -60,6 +60,9 @@ private List<Photo> photos = new ArrayList<>();
  @JsonIgnore // Empêche la boucle infinie en JSON
  @ManyToMany(mappedBy = "articles") // Relation bidirectionnelle
  private List<Pack> packs;
+ 
+ @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+ private List<LignePanier> lignePaniers;
 
 public int getId() {
 	return id;
@@ -95,12 +98,12 @@ public void setPrixFournisseur(double prixFournisseur) {
 	this.prixFournisseur = prixFournisseur;
 }
 
-public double getPrixClient() {
-	return prixClient;
+public double getPrixVente() {
+	return prixVente;
 }
 
-public void setPrixClient(double prixClient) {
-	this.prixClient = prixClient;
+public void setPrixVente(double prixVente) {
+	this.prixVente = prixVente;
 }
 
 public List<Pack> getPacks() {
