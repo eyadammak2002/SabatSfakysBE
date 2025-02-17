@@ -39,6 +39,10 @@ private Fournisseur fournisseur;
 )
 private List<Article> articles;
 
+@OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
+private List<LignePanier> lignePaniers;
+
+
 public int getId() {
 	return id;
 }

@@ -11,8 +11,7 @@ public abstract class Personne {
     private long id;
     @Column 
     private String nom;
-    @Column 
-    private String prenom;
+ 
     @Column 
     private String email;
     @Column 
@@ -37,13 +36,7 @@ public abstract class Personne {
         this.nom = nom;
     }
 
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+    
 
     public String getEmail() {
         return email;
