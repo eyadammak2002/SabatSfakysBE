@@ -36,6 +36,19 @@ public class FournisseurService {
 	{  
 		bR.save(fournisseurs);  
 	} 
+	
+
+	public Fournisseur updateFournisseur(int id, Fournisseur updatedFournisseur) {
+	    return bR.findById(id).map(fournisseur -> {
+	        fournisseur.setNom(updatedFournisseur.getNom());
+	        fournisseur.setEmail(updatedFournisseur.getEmail());
+	        fournisseur.setAdresse(updatedFournisseur.getAdresse());
+	        fournisseur.setTelephone(updatedFournisseur.getTelephone());
+	        fournisseur.setMotDePasse(updatedFournisseur.getMotDePasse());
+	        fournisseur.setStatut(updatedFournisseur.getStatut()); // ✅ Mise à jour du statut
+	        return bR.save(fournisseur);
+	    }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
+	}
 
 	//deleting a specific record by using the method deleteById() of CrudRepository  
 	public void delete(int id)   

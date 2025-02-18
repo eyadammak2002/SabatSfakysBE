@@ -8,23 +8,36 @@ public abstract class Personne {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected int id;
     @Column 
-    private String nom;
+    protected String nom;
  
     @Column 
-    private String email;
+    protected String email;
     @Column 
-    private String adresse;
+    protected String adresse;
     @Column 
-    private String telephone;
+    protected String telephone;
+    @Column 
+    protected String motDePasse;
+
+    
+    public Personne() {}
+
+    public Personne(String nom,String email, String adresse, String telephone, String motDePasse) {
+        this.nom = nom;
+        this.email = email;
+        this.adresse = adresse;
+        this.telephone = telephone;
+        this.motDePasse = motDePasse;
+    }
 
     // Getters et Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,6 +74,15 @@ public abstract class Personne {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+    
 }
 
 

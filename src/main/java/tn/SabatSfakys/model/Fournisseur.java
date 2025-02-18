@@ -5,6 +5,8 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +28,16 @@ public class Fournisseur extends Personne{
  @JoinColumn(name = "id_photo")
  private Photo logo;
  
+ @Enumerated(EnumType.STRING)
+ private StatutFournisseur statut = StatutFournisseur.EN_ATTENTE; // Par défaut en attente
+
+ public Fournisseur() {}
+
+ public Fournisseur(String nom,String email, String adresse, String telephone, String motDePasse) {
+     super(nom, adresse,telephone, email, motDePasse); // Utilisation du constructeur de Personne
+     
+     this.statut = StatutFournisseur.EN_ATTENTE;
+ }
 
 
 
@@ -35,6 +47,14 @@ public Photo getLogo() {
 
 public void setLogo(Photo logo) {
 	this.logo = logo;
+}
+
+public StatutFournisseur getStatut() {
+	return statut;
+}
+
+public void setStatut(StatutFournisseur statut) {
+	this.statut = statut;
 }
 
 

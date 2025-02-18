@@ -19,6 +19,14 @@ public class Client extends Personne {
     	@Column
 	    private Genre sexe;
 	    
+    	
+    	 public Client() {}
+
+    	 public Client(String nom, String prenom, String email, String adresse, String telephone,Genre sexe ,String motDePasse) {
+    	     super(nom, adresse,telephone, email, motDePasse); // Utilisation du constructeur de Personne
+    	     this.sexe = sexe;
+    	     this.prenom = prenom;
+    	 }
 		
 		public Genre getSexe() {
 			return sexe;
