@@ -50,18 +50,17 @@ public class FournisseurController {
 
 	//create new fournisseur
 	@PostMapping("/fournisseur")  
-	private Long saveFournisseur(@RequestBody Fournisseur a)   
+	private int saveFournisseur(@RequestBody Fournisseur a)   
 	{  
 		as.saveOrUpdate(a);  
 		return a.getId();  
 	} 
 
 	//creating put mapping that updates the fournisseur detail
-	@PutMapping("/fournisseur")  
-	private Fournisseur update(@RequestBody  Fournisseur a)   
-	{  
-		as.saveOrUpdate(a);  
-		return a;  
-	} 
+	@PutMapping("/fournisseur/{id}")  
+	public Fournisseur update(@PathVariable int id, @RequestBody Fournisseur updatedFournisseur) {  
+	    return as.updateFournisseur(id, updatedFournisseur);
+	}
+
 	
 }

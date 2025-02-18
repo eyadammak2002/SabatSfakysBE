@@ -1,0 +1,71 @@
+package tn.SabatSfakys.security.jwt;
+
+
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
+
+import javax.crypto.SecretKey;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import tn.SabatSfakys.security.services.UserDetailsImpl;
+
+@Component
+public class JwtUtils {
+  private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
+  @Value("${SabatSfakys.app.jwtSecret}")
+  private String jwtSecret;
+
+  @Value("${SabatSfakys.app.jwtExpirationMs}")
+  private int jwtExpirationMs;
+
+  private SecretKey getSigningKey() {
+	    return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	}
+  
+  public String generateJwtToken(Authentication authentication) {
+      UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+      
+      // Generate JWT Token
+      return Jwts.builder()
+              .setSubject(userPrincipal.getUsername())
+              .setIssuedAt(new Date())
+              .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+              .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+              .compact();
+  }
+  
+
+
+
+  public String getUserNameFromJwtToken(String token) {
+      return Jwts.parserBuilder()
+              .setSigningKey(getSigningKey())
+              .build()
+              .parseClaimsJws(token)
+              .getBody()
+              .getSubject();
+  }
+
+  public boolean validateJwtToken(String authToken) {
+      try {
+          Jwts.parserBuilder()
+              .setSigningKey(getSigningKey())
+              .build()
+              .parseClaimsJws(authToken);
+          return true;
+      } catch (Exception e) {
+          logger.error("JWT validation failed: {}", e.getMessage());
+      }
+      return false;
+  }
+}

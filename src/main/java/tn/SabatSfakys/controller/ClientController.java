@@ -40,7 +40,7 @@ public class ClientController {
 
 	//create new client
 	@PostMapping("/client")  
-	private Long saveClient(@RequestBody Client a)   
+	private int saveClient(@RequestBody Client a)   
 	{  
 		as.saveOrUpdate(a);  
 		return a.getId();  
