@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.mail.MessagingException;
 import tn.SabatSfakys.model.Fournisseur;
 
 import tn.SabatSfakys.service.FournisseurService;
@@ -58,7 +59,7 @@ public class FournisseurController {
 
 	//creating put mapping that updates the fournisseur detail
 	@PutMapping("/fournisseur/{id}")  
-	public Fournisseur update(@PathVariable int id, @RequestBody Fournisseur updatedFournisseur) {  
+	public Fournisseur update(@PathVariable int id, @RequestBody Fournisseur updatedFournisseur) throws MessagingException {  
 	    return as.updateFournisseur(id, updatedFournisseur);
 	}
 

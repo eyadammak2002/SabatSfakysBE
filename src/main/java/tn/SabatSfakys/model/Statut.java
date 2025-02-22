@@ -1,6 +1,6 @@
 package tn.SabatSfakys.model;
 
-public enum StatutFournisseur {
+public enum Statut {
     EN_ATTENTE,
     ACCEPTE,
     REFUSE

@@ -50,6 +50,10 @@ private Couleur couleur;
 private Genre genre;
 @Column 
 private Tissu tissu;
+
+@Enumerated(EnumType.STRING)
+private Statut statut = Statut.EN_ATTENTE; // Par défaut en attente
+
 @ManyToOne
 @JoinColumn(name = "idcategory" ,referencedColumnName="id") 
 private Category category;
@@ -64,6 +68,7 @@ private List<Photo> photos = new ArrayList<>();
  @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
  private List<LignePanier> lignePaniers;
 
+ 
 public int getId() {
 	return id;
 }
@@ -173,6 +178,25 @@ public Category getCategory() {
 public void setCategory(Category category) {
 	this.category = category;
 }
+
+
+
+public List<LignePanier> getLignePaniers() {
+	return lignePaniers;
+}
+
+public void setLignePaniers(List<LignePanier> lignePaniers) {
+	this.lignePaniers = lignePaniers;
+}
+
+public Statut getStatut() {
+	return statut;
+}
+
+public void setStatut(Statut statut) {
+	this.statut = statut;
+}
+
 
 
 

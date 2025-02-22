@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.SabatSfakys.model.Article;
-
+import tn.SabatSfakys.model.Article;
 import tn.SabatSfakys.service.ArticleService;
 @CrossOrigin(origins = "*")
 @RestController
@@ -56,12 +56,11 @@ public class ArticleController {
 		return a.getId();  
 	} 
 
+
 	//creating put mapping that updates the article detail
-	@PutMapping("/article")  
-	private Article update(@RequestBody  Article a)   
-	{  
-		as.saveOrUpdate(a);  
-		return a;  
-	} 
-	
+	@PutMapping("/article/{id}")  
+	public Article update(@PathVariable int id, @RequestBody Article updatedArticle) {  
+	    return as.updateArticle(id, updatedArticle);
+	}
+
 }

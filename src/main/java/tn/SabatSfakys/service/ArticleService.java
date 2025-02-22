@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.SabatSfakys.model.Article;
+import tn.SabatSfakys.model.Article;
 import tn.SabatSfakys.repository.ArticleRepository;
 
 @Service 
@@ -42,6 +43,28 @@ public class ArticleService {
 	{  
 		bR.deleteById(id);  
 	} 
+	
+	public Article updateArticle(int id, Article updatedArticle) {
+	    return bR.findById(id)
+	        .map(article -> {
+	            article.setRef(updatedArticle.getRef());
+	            article.setName(updatedArticle.getName());
+	            article.setDescription(updatedArticle.getDescription());
+	            article.setQte(updatedArticle.getQte());
+	            article.setPrixFournisseur(updatedArticle.getPrixFournisseur());
+	            article.setPrixVente(updatedArticle.getPrixVente());
+	            article.setCouleur(updatedArticle.getCouleur());
+	            article.setGenre(updatedArticle.getGenre());
+	            article.setTissu(updatedArticle.getTissu());
+	            article.setStatut(updatedArticle.getStatut());
+	            article.setCategory(updatedArticle.getCategory());
+	            article.setPhotos(updatedArticle.getPhotos());
+	            return (Article) bR.save(article);  // 🔹 Ajout du cast explicite
+	        })
+	        .orElseThrow(() -> new RuntimeException("Article non trouvé avec ID: " + id));
+	}
+
+	  
 }
 
 
