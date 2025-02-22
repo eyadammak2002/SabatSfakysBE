@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.MessagingException;
 import tn.SabatSfakys.model.Fournisseur;
 import tn.SabatSfakys.repository.FournisseurRepository;
 
@@ -14,6 +15,8 @@ import tn.SabatSfakys.repository.FournisseurRepository;
 public class FournisseurService {
 	@Autowired  
 	FournisseurRepository bR;  
+	@Autowired  
+	EmailService emailService;
 
 	//getting all books record by using the method findaAll() of CrudRepository  
 	public List<Fournisseur> getAllFournisseurs()   
@@ -38,17 +41,20 @@ public class FournisseurService {
 	} 
 	
 
-	public Fournisseur updateFournisseur(int id, Fournisseur updatedFournisseur) {
-	    return bR.findById(id).map(fournisseur -> {
+	public Fournisseur updateFournisseur(int id, Fournisseur updatedFournisseur) throws MessagingException {
+	   Fournisseur fournisseurSaved = bR.findById(id).map(fournisseur -> {
 	        fournisseur.setNom(updatedFournisseur.getNom());
 	        fournisseur.setEmail(updatedFournisseur.getEmail());
 	        fournisseur.setAdresse(updatedFournisseur.getAdresse());
 	        fournisseur.setTelephone(updatedFournisseur.getTelephone());
 	        fournisseur.setMotDePasse(updatedFournisseur.getMotDePasse());
-	        fournisseur.setStatut(updatedFournisseur.getStatut()); // ✅ Mise à jour du statut
+	        fournisseur.setStatut(updatedFournisseur.getStatut()); 
 	        return bR.save(fournisseur);
 	    }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
+	   emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
+	   return fournisseurSaved;
 	}
+	
 
 	//deleting a specific record by using the method deleteById() of CrudRepository  
 	public void delete(int id)   

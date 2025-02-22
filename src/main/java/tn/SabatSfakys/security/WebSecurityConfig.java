@@ -67,8 +67,8 @@ public class WebSecurityConfig {
               auth.requestMatchers("/api/auth/**").permitAll()  // Public
                   .requestMatchers("/api/test/**").permitAll()  // Public
                   .requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") // ✅ Seuls les admins peuvent accéder à `/fournisseur`
-                  .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
-          );
+                  .anyRequest().authenticated() // anyRequest().permitAll() Toutes les autres requêtes nécessitent une authentification
+          ).cors();
 
       http.authenticationProvider(authenticationProvider());
 
