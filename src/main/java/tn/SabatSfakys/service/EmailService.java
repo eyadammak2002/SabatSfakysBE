@@ -42,7 +42,7 @@ public class EmailService implements EmailSender{
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confim Your Email");
-            helper.setFrom("eyadammak.ig@gmail.com");
+            helper.setFrom("eya.dammak@escs.u-sfax.tn");
             mailSender.send(message);
         } catch (MessagingException e) {
         	throw new RuntimeException(e);
@@ -62,7 +62,7 @@ public class EmailService implements EmailSender{
 
         helper.setTo(to);
         helper.setSubject("Confim Your Email");
-        helper.setFrom("inscriptiontournage@cnci.tn");
+        helper.setFrom("eya.dammak@escs.u-sfax.tn");
         helper.setText(htmlContent, true);  // true for HTML content
         mailSender.send(message);
     }

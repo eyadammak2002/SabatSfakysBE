@@ -22,17 +22,39 @@ public abstract class Personne {
     protected String motDePasse;
 
     
-    public Personne() {}
+   
 
-    public Personne(String nom,String email, String adresse, String telephone, String motDePasse) {
-        this.nom = nom;
-        this.email = email;
-        this.adresse = adresse;
-        this.telephone = telephone;
-        this.motDePasse = motDePasse;
-    }
+    public Personne() {
+	
+	}
 
-    // Getters et Setters
+	public Personne(int id, String nom, String email, String adresse, String telephone, String motDePasse) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.email = email;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.motDePasse = motDePasse;
+	}
+	public Personne(String nom, String email, String adresse, String telephone, String motDePasse) {
+		super();
+		
+		this.nom = nom;
+		this.email = email;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.motDePasse = motDePasse;
+	}
+	
+	public Personne(String nom, String email,String motDePasse) {
+	
+		this.nom = nom;
+		this.email = email;
+		this.motDePasse = motDePasse;
+	}
+
+	// Getters et Setters
     public int getId() {
         return id;
     }
