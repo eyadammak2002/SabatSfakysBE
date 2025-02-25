@@ -2,65 +2,59 @@ package tn.SabatSfakys.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import jakarta.mail.MessagingException;
 import tn.SabatSfakys.model.Fournisseur;
 import tn.SabatSfakys.repository.FournisseurRepository;
 
-@Service 
-
+@Service
 public class FournisseurService {
-	@Autowired  
-	FournisseurRepository bR;  
-	@Autowired  
-	EmailService emailService;
 
-	//getting all books record by using the method findaAll() of CrudRepository  
-	public List<Fournisseur> getAllFournisseurs()   
-	{  
-		List<Fournisseur> fournisseurs = new ArrayList<Fournisseur>();  
-		bR.findAll().forEach(c -> fournisseurs.add(c));  
-		return fournisseurs;  	
-	}  
+    @Autowired  
+    FournisseurRepository fournisseurRepository;  // Le repository pour les fournisseurs
+    
+    @Autowired  
+    EmailService emailService;  // Le service pour l'envoi des emails
 
-	//getting a specific record by using the method findById() of CrudRepository  
-	public Fournisseur getFournisseurById(int id)   
-	{  
-		return bR.findById(id).get();  
-	}  
+    // Récupère tous les fournisseurs
+    public List<Fournisseur> getAllFournisseurs() {
+        List<Fournisseur> fournisseurs = new ArrayList<>();
+        fournisseurRepository.findAll().forEach(fournisseur -> fournisseurs.add(fournisseur));
+        return fournisseurs;
+    }
 
+    // Récupère un fournisseur spécifique par ID
+    public Fournisseur getFournisseurById(int id) {
+        return fournisseurRepository.findById(id).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
+    }
 
+    // Sauvegarde ou met à jour un fournisseur
+    public void saveOrUpdate(Fournisseur fournisseur) {
+        fournisseurRepository.save(fournisseur);
+    }
 
-	//saving a specific record by using the method save() of CrudRepository  
-	public void saveOrUpdate(Fournisseur fournisseurs)   
-	{  
-		bR.save(fournisseurs);  
-	} 
-	
+    // Mise à jour d'un fournisseur
+    public Fournisseur updateFournisseur(int id, Fournisseur updatedFournisseur) throws MessagingException {
+        Fournisseur fournisseurSaved = fournisseurRepository.findById(id).map(fournisseur -> {
+            // Mise à jour des données
+            fournisseur.setNom(updatedFournisseur.getNom());
+            fournisseur.setEmail(updatedFournisseur.getEmail());
+            fournisseur.setAdresse(updatedFournisseur.getAdresse());
+            fournisseur.setTelephone(updatedFournisseur.getTelephone());
+            fournisseur.setMotDePasse(updatedFournisseur.getMotDePasse());
+            fournisseur.setStatut(updatedFournisseur.getStatut());
+            return fournisseurRepository.save(fournisseur);  // Sauvegarde le fournisseur mis à jour
+        }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
 
-	public Fournisseur updateFournisseur(int id, Fournisseur updatedFournisseur) throws MessagingException {
-	   Fournisseur fournisseurSaved = bR.findById(id).map(fournisseur -> {
-	        fournisseur.setNom(updatedFournisseur.getNom());
-	        fournisseur.setEmail(updatedFournisseur.getEmail());
-	        fournisseur.setAdresse(updatedFournisseur.getAdresse());
-	        fournisseur.setTelephone(updatedFournisseur.getTelephone());
-	        fournisseur.setMotDePasse(updatedFournisseur.getMotDePasse());
-	        fournisseur.setStatut(updatedFournisseur.getStatut()); 
-	        return bR.save(fournisseur);
-	    }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
-	   emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
-	   return fournisseurSaved;
-	}
-	
+        // Envoi de l'email après mise à jour
+        //emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
 
-	//deleting a specific record by using the method deleteById() of CrudRepository  
-	public void delete(int id)   
-	{  
-		bR.deleteById(id);  
-	} 
+        return fournisseurSaved;
+    }
+
+    // Suppression d'un fournisseur
+    public void delete(int id) {
+        fournisseurRepository.deleteById(id);
+    }
 }
-
-

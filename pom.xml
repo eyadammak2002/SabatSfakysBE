@@ -48,6 +48,13 @@
     <artifactId>spring-boot-starter-security</artifactId>
     <version>3.2.2</version> <!-- Use the latest version -->
 </dependency>
+  <!-- lambok Dependencies -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.36</version>
+    <scope>provided</scope>
+</dependency>
   <!-- email Dependencies -->
 
 <dependency>

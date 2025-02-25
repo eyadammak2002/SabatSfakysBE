@@ -2,6 +2,7 @@ package tn.SabatSfakys.model;
 
 public enum ERole {
 	ROLE_USER,
-    ROLE_MODERATOR,
-    ROLE_ADMIN
+    ROLE_ADMIN,
+    ROLE_CLIENT,
+    ROLE_FOURNISSEUR
 }

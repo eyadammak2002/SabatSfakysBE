@@ -61,12 +61,16 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http.csrf(csrf -> csrf.disable())
-          .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+        //  .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
           .authorizeHttpRequests(auth -> 
               auth.requestMatchers("/api/auth/**").permitAll()  // Public
                   .requestMatchers("/api/test/**").permitAll()  // Public
-                  .requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") // ✅ Seuls les admins peuvent accéder à `/fournisseur`
+                  //.requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") // ✅ Seuls les admins peuvent accéder à `/fournisseur`
+                  .requestMatchers("/uploadFile").permitAll()  // Public
+                  .requestMatchers("/files/**").permitAll() // ✅ Seuls les admins peuvent accéder à `/fournisseur`
+
+                  .requestMatchers("/uploads/**").permitAll() // ✅ Seuls les admins peuvent accéder à `/fournisseur`
                   .anyRequest().authenticated() // anyRequest().permitAll() Toutes les autres requêtes nécessitent une authentification
           ).cors();
 
