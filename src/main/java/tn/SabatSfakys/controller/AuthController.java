@@ -151,7 +151,7 @@ public class AuthController {
 	   
 	   
 	   if("ROLE_FOURNISSEUR".equals(role.name())) {
-	        Fournisseur fournisseur = new Fournisseur(email,username,adresse,telephone,password,statut,numeroIdentificationEntreprise
+	        Fournisseur fournisseur = new Fournisseur(email,username,adresse,telephone,password,logo,statut,numeroIdentificationEntreprise
 	        		,materiauxUtilises,methodesProduction,programmeRecyclage,transportLogistiqueVerte,initiativesSociales,scoreEcologique);
 	        					  
 	        

@@ -48,10 +48,18 @@ public class FournisseurService {
         }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
 
         // Envoi de l'email après mise à jour
-        emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
-
+        //emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
+        String statut = fournisseurSaved.getStatut().name();
+        if ("ACCEPTE".equalsIgnoreCase(statut)) {
+            emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
+        } else if ("REFUSE".equalsIgnoreCase(statut)) {
+            emailService.sendRefusedAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
+        } else {
+            System.out.println("🚨 Statut non reconnu : '" + statut + "'");
+        }
         return fournisseurSaved;
     }
+    
 
     // Suppression d'un fournisseur
     public void delete(int id) {

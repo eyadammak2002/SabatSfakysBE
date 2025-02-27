@@ -66,11 +66,11 @@ public class WebSecurityConfig {
           .authorizeHttpRequests(auth -> 
               auth.requestMatchers("/api/auth/**").permitAll()  // Public
                   .requestMatchers("/api/test/**").permitAll()  // Public
-                  //.requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") // ✅ Seuls les admins peuvent accéder à `/fournisseur`
+                  //.requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") 
                   .requestMatchers("/uploadFile").permitAll()  // Public
-                  .requestMatchers("/files/**").permitAll() // ✅ Seuls les admins peuvent accéder à `/fournisseur`
-
-                  .requestMatchers("/uploads/**").permitAll() // ✅ Seuls les admins peuvent accéder à `/fournisseur`
+                  .requestMatchers("/files/**").permitAll() // 
+                  .requestMatchers("/photo").permitAll()
+                  .requestMatchers("/uploads/**").permitAll() //
                   .anyRequest().authenticated() // anyRequest().permitAll() Toutes les autres requêtes nécessitent une authentification
           ).cors();
 
