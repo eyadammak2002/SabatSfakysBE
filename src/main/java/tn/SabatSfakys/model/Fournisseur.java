@@ -9,9 +9,9 @@ import lombok.Builder;
 @Builder
 public class Fournisseur extends Personne {
 
-  //  @ManyToOne
-    //@JoinColumn(name = "id_photo")
-    //private Photo logo;
+	@ManyToOne
+    @JoinColumn(name = "id_photo")
+    private Photo logo;
 
     @Enumerated(EnumType.STRING)
     private Statut statut = Statut.EN_ATTENTE; // Par défaut en attente
@@ -42,12 +42,12 @@ public class Fournisseur extends Personne {
     
     
 
-    public Fournisseur( Statut statut, String numeroIdentificationEntreprise, String materiauxUtilises,
+    public Fournisseur( Statut statut, String numeroIdentificationEntreprise,Photo logo, String materiauxUtilises,
 			String methodesProduction, String programmeRecyclage, String transportLogistiqueVerte,
 			String initiativesSociales, double scoreEcologique) {
     	
 		super();
-		//this.logo = logo;
+		this.logo = logo;
 		this.statut = statut;
 		this.numeroIdentificationEntreprise = numeroIdentificationEntreprise;
 		this.materiauxUtilises = materiauxUtilises;
@@ -58,13 +58,13 @@ public class Fournisseur extends Personne {
 		this.scoreEcologique = scoreEcologique;
 	}
     
-	public Fournisseur(String username, String email, String adresse, String telephone, String password,
+	public Fournisseur(String username, String email, String adresse, String telephone, String password,Photo logo,
 			 Statut statut,String numeroIdentificationEntreprise,String materiauxUtilises,String methodesProduction,String programmeRecyclage,String transportLogistiqueVerte
 			,String initiativesSociales,double scoreEcologique) {
 		
 		super( username, email, adresse, telephone, password);
 		// TODO Auto-generated constructor stub
-		//this.logo = logo;
+		this.logo = logo;
 		this.statut = statut;
 		this.numeroIdentificationEntreprise = numeroIdentificationEntreprise;
 		this.materiauxUtilises = materiauxUtilises;
