@@ -20,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.SabatSfakys.model.Admin;
 import tn.SabatSfakys.model.Client;
 import tn.SabatSfakys.model.ERole;
-import tn.SabatSfakys.model.Role;
+import tn.SabatSfakys.model.Fournisseur;
+import tn.SabatSfakys.model.Genre;
+import tn.SabatSfakys.model.Photo;
+import tn.SabatSfakys.model.Statut;
 import tn.SabatSfakys.model.User;
 import tn.SabatSfakys.payload.request.LoginRequest;
 import tn.SabatSfakys.payload.request.SignupRequest;
@@ -31,7 +35,6 @@ import tn.SabatSfakys.payload.response.MessageResponse;
 import tn.SabatSfakys.repository.AdminRepository;
 import tn.SabatSfakys.repository.ClientRepository;
 import tn.SabatSfakys.repository.FournisseurRepository;
-import tn.SabatSfakys.repository.RoleRepository;
 import tn.SabatSfakys.repository.UserRepository;
 import tn.SabatSfakys.security.jwt.JwtUtils;
 import tn.SabatSfakys.security.services.UserDetailsImpl;
@@ -53,8 +56,7 @@ public class AuthController {
 	@Autowired
 	FournisseurRepository fournisseurRepository;
 
-	@Autowired
-	RoleRepository roleRepository;
+
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -66,7 +68,7 @@ public class AuthController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 	    Authentication authentication = authenticationManager.authenticate(
-	            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+	            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
 
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    String jwt = jwtUtils.generateJwtToken(authentication);
@@ -74,7 +76,7 @@ public class AuthController {
 	    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 	    
 	    // Directly get the Role from UserDetailsImpl
-	    Role role = userDetails.getRole();
+	    ERole role = userDetails.getRole();
 
 	    return ResponseEntity.ok(new JwtResponse(jwt, 
 	                                             userDetails.getId(), 
@@ -84,6 +86,9 @@ public class AuthController {
 	                                            
 	                                             role)); // Pass the role object
 	}
+	
+	
+	
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -101,31 +106,61 @@ public class AuthController {
 	    String username = signUpRequest.getUsername();
 	    String email = signUpRequest.getEmail();
 	    String password = encoder.encode(signUpRequest.getPassword());
+	    String adresse = signUpRequest.getAdresse();
+	    String telephone = signUpRequest.getTelephone();
+	    Genre sexe = signUpRequest.getSexe();
+	    Photo logo = signUpRequest.getLogo();
+	    Statut statut = signUpRequest.getStatut();
+	    String numeroIdentificationEntreprise = signUpRequest.getNumeroIdentificationEntreprise();
+	    String materiauxUtilises = signUpRequest.getMateriauxUtilises();
+	    String methodesProduction = signUpRequest.getMethodesProduction();
+	    String programmeRecyclage = signUpRequest.getProgrammeRecyclage();
+	    String transportLogistiqueVerte = signUpRequest.getTransportLogistiqueVerte();
+	    String initiativesSociales = signUpRequest.getInitiativesSociales();
+	    double scoreEcologique = signUpRequest.getScoreEcologique();
+
 	    // Create new user's account
 	   User user=new User(username,email,password);
 	    
 
 	    // Get the role from SignupRequest or default to ROLE_USER
-	    Role role = signUpRequest.getRole();
+	    ERole role = signUpRequest.getRole();
 	    if (role == null) {
-	        role = roleRepository.findByName(ERole.ROLE_CLIENT)
-	                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-	    } else {
-	        // Validate role if it's provided
-	        role = roleRepository.findById(role.getId().longValue())
-	                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+	        role = ERole.ROLE_CLIENT;
+	                            
 	    }
 
 	    user.setRole(role); // Set role
 	    userRepository.save(user);
-	   if("ROLE_CLIENT".equals(role.getName().name())) {
-	        Client client = new Client(email,username,password);
+	    
+	    
+	   if("ROLE_CLIENT".equals(role.name())) {
+	        Client client = new Client(username,email,adresse,telephone,password,sexe);
 	        					  
 	        
 	    	clientRepository.save(client);
 	    }
-
+	   
+	   
+	   if("ROLE_ADMIN".equals(role.name())) {
+		   Admin admin = new Admin(username,email,adresse,telephone,password);
+	        					  
+	        
+		   adminRepository.save(admin);
+	    }
+	   
+	   
+	   if("ROLE_FOURNISSEUR".equals(role.name())) {
+	        Fournisseur fournisseur = new Fournisseur(email,username,adresse,telephone,password,statut,numeroIdentificationEntreprise
+	        		,materiauxUtilises,methodesProduction,programmeRecyclage,transportLogistiqueVerte,initiativesSociales,scoreEcologique);
+	        					  
+	        
+	        fournisseurRepository.save(fournisseur);
+	    }
+	   
+	   
 	    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	    
 	}
 	
 	/*// --- Inscription Client ---

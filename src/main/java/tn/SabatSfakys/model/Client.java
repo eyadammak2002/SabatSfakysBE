@@ -14,8 +14,7 @@ import lombok.Builder;
 @Inheritance(strategy = InheritanceType.JOINED) // Stratégie pour l'héritage en base de données
 @Builder(toBuilder = true)
 public class Client extends Personne {
-	    @Column 
-	    private String prenom;
+	
 	   
     	@Enumerated(EnumType.STRING)  // Assurez-vous que l'enum est stocké en String
     	@Column
@@ -23,18 +22,32 @@ public class Client extends Personne {
 	    
     	
   
+	
 		
-		public Client(String nom, String email, String motDePasse) {
-			super(nom, email, motDePasse);
+		public Client(String username, String email, String adresse, String telephone, String password) {
+			super(username, email, adresse, telephone, password);
 			// TODO Auto-generated constructor stub
 		}
+
+		public Client(String username, String email, String password) {
+			super(username, email, password);
+			// TODO Auto-generated constructor stub
+		}
+
 		public Client() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		public Client(int id, String nom, String email, String adresse, String telephone, String motDePasse) {
-			super(id, nom, email, adresse, telephone, motDePasse);
+		
+		public Client(int id, String username, String email, String adresse, String telephone, String password) {
+			super(id, username, email, adresse, telephone, password);
 			// TODO Auto-generated constructor stub
+		}
+		
+		
+		public Client( String username, String email, String adresse, String telephone, String password, Genre sexe) {
+			super( username, email, adresse, telephone, password);
+			this.sexe = sexe;
 		}
 		
 		
@@ -44,14 +57,9 @@ public class Client extends Personne {
 		public void setSexe(Genre sexe) {
 			this.sexe = sexe;
 		}
-		public String getPrenom() {
-			return prenom;
-		}
-		public void setPrenom(String prenom) {
-			this.prenom = prenom;
-		}
+	
 		
-		
+	
 	}
 
 

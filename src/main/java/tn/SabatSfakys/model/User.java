@@ -31,10 +31,13 @@ public class User {
   @Size(max = 120)
   private String password;
 
+  private ERole role;
+
+
   public User() {}
   
   public User(Long id, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
-		@NotBlank @Size(max = 120) String password, Role role) {
+		@NotBlank @Size(max = 120) String password, ERole role) {
 	super();
 	this.id = id;
 	this.username = username;
@@ -51,11 +54,6 @@ public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50)
 	this.email = email;
 	this.password = password;
 }
-
-
-@ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "id_role")
-  private Role role;
 
  
   public Long getId() {
@@ -90,11 +88,11 @@ public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50)
     this.password = password;
   }
 
-public Role getRole() {
+public ERole getRole() {
 	return role;
 }
 
-public void setRole(Role role) {
+public void setRole(ERole role) {
 	this.role = role;
 }
 

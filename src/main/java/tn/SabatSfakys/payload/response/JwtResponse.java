@@ -2,7 +2,7 @@ package tn.SabatSfakys.payload.response;
 
 import java.util.List;
 
-import tn.SabatSfakys.model.Role;
+import tn.SabatSfakys.model.ERole;
 
 public class JwtResponse {
 	private String token;
@@ -10,9 +10,9 @@ public class JwtResponse {
 	private Long id;
 	private String username;
 	private String email;
-	private Role role;
+	private ERole role;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, Role role) {
+	public JwtResponse(String accessToken, Long id, String username, String email, ERole role) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
@@ -60,11 +60,11 @@ public class JwtResponse {
 		this.username = username;
 	}
 
-	public Role getRole() {
+	public ERole getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(ERole role) {
 		this.role = role;
 	}
 

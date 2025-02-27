@@ -10,7 +10,7 @@ public abstract class Personne {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
     @Column 
-    protected String nom;
+    protected String username;
  
     @Column 
     protected String email;
@@ -19,7 +19,7 @@ public abstract class Personne {
     @Column 
     protected String telephone;
     @Column 
-    protected String motDePasse;
+    protected String password;
 
     
    
@@ -28,30 +28,30 @@ public abstract class Personne {
 	
 	}
 
-	public Personne(int id, String nom, String email, String adresse, String telephone, String motDePasse) {
+	public Personne(int id, String username, String email, String adresse, String telephone, String password) {
 		super();
 		this.id = id;
-		this.nom = nom;
+		this.username = username;
 		this.email = email;
 		this.adresse = adresse;
 		this.telephone = telephone;
-		this.motDePasse = motDePasse;
+		this.password = password;
 	}
-	public Personne(String nom, String email, String adresse, String telephone, String motDePasse) {
+	public Personne(String username, String email, String adresse, String telephone, String password) {
 		super();
 		
-		this.nom = nom;
+		this.username = username;
 		this.email = email;
 		this.adresse = adresse;
 		this.telephone = telephone;
-		this.motDePasse = motDePasse;
+		this.password = password;
 	}
 	
-	public Personne(String nom, String email,String motDePasse) {
+	public Personne(String username, String email,String password) {
 	
-		this.nom = nom;
+		this.username = username;
 		this.email = email;
-		this.motDePasse = motDePasse;
+		this.password = password;
 	}
 
 	// Getters et Setters
@@ -64,11 +64,11 @@ public abstract class Personne {
     }
 
     public String getNom() {
-        return nom;
+        return username;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNom(String username) {
+        this.username = username;
     }
 
     
@@ -98,11 +98,11 @@ public abstract class Personne {
     }
 
 	public String getMotDePasse() {
-		return motDePasse;
+		return password;
 	}
 
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
+	public void setMotDePasse(String password) {
+		this.password = password;
 	}
     
 }
