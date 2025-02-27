@@ -48,7 +48,7 @@ public class FournisseurService {
         }).orElseThrow(() -> new RuntimeException("Fournisseur non trouvé avec ID: " + id));
 
         // Envoi de l'email après mise à jour
-        //emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
+        emailService.sendAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
 
         return fournisseurSaved;
     }

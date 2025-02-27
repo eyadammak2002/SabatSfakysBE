@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import tn.SabatSfakys.model.Role;
+import tn.SabatSfakys.model.ERole;
 import tn.SabatSfakys.model.User;
 
 
@@ -30,9 +30,9 @@ public class UserDetailsImpl implements UserDetails {
   @JsonIgnore
   private String password;
 
-  private Role role; // Directly store the role
+  private ERole role; // Directly store the role
 
-  public UserDetailsImpl(Long id, String username, String email, String password, Role role) {
+  public UserDetailsImpl(Long id, String username, String email, String password, ERole role) {
       this.id = id;
       this.username = username;
       this.email = email;
@@ -57,10 +57,10 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-      return Collections.singletonList(new SimpleGrantedAuthority(role.getName().name()));
+      return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
   }
 
-  public Role getRole() {
+  public ERole getRole() {
       return role;
   }
 
