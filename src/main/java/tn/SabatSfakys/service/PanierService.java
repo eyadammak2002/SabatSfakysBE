@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.SabatSfakys.model.Panier;
 import tn.SabatSfakys.model.Client;
-import tn.SabatSfakys.repository.PanierRepository;
 import tn.SabatSfakys.repository.ClientRepository;
+import tn.SabatSfakys.repository.PanierRepository;
 
 @Service
 public class PanierService {

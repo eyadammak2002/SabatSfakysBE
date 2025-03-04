@@ -32,6 +32,7 @@ public class User {
   private String password;
 
   private ERole role;
+  
 
 
   public User() {}

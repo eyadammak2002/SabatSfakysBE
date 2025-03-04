@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
+import tn.SabatSfakys.model.Avis;
 import tn.SabatSfakys.model.Fournisseur;
 import tn.SabatSfakys.repository.FournisseurRepository;
 
@@ -23,6 +24,8 @@ public class FournisseurService {
         fournisseurRepository.findAll().forEach(fournisseur -> fournisseurs.add(fournisseur));
         return fournisseurs;
     }
+    
+   
 
     // Récupère un fournisseur spécifique par ID
     public Fournisseur getFournisseurById(int id) {
@@ -55,7 +58,7 @@ public class FournisseurService {
         } else if ("REFUSE".equalsIgnoreCase(statut)) {
             emailService.sendRefusedAuthenticationEmail(fournisseurSaved.getEmail(), fournisseurSaved.getNom());
         } else {
-            System.out.println("🚨 Statut non reconnu : '" + statut + "'");
+            System.out.println("Statut non reconnu : '" + statut + "'");
         }
         return fournisseurSaved;
     }

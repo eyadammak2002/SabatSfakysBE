@@ -34,10 +34,7 @@ public class Client extends Personne {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Client() {
-			super();
-			// TODO Auto-generated constructor stub
-		}
+		
 		
 		public Client(int id, String username, String email, String adresse, String telephone, String password) {
 			super(id, username, email, adresse, telephone, password);
@@ -45,10 +42,14 @@ public class Client extends Personne {
 		}
 		
 		
-		public Client( String username, String email, String adresse, String telephone, String password, Genre sexe) {
-			super( username, email, adresse, telephone, password);
-			this.sexe = sexe;
-		}
+		
+		  public Client() {}  // ✅ Constructeur vide requis par Hibernate
+
+		    public Client(String username, String email, String adresse, String telephone, String password, Genre sexe) {
+		        super(username, email, adresse, telephone, password);
+		        this.sexe = sexe;
+		    }
+
 		
 		
 		public Genre getSexe() {

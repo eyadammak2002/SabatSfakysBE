@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import tn.SabatSfakys.model.Commande;
 import tn.SabatSfakys.model.Panier;
 import tn.SabatSfakys.model.Client;
+
+import tn.SabatSfakys.repository.ClientRepository;
 import tn.SabatSfakys.repository.CommandeRepository;
 import tn.SabatSfakys.repository.PanierRepository;
-import tn.SabatSfakys.repository.ClientRepository;
+
 
 @Service
 public class CommandeService {

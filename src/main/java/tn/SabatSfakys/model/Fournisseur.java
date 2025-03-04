@@ -9,6 +9,7 @@ import lombok.Builder;
 @Builder
 public class Fournisseur extends Personne {
 
+	
 	@ManyToOne
     @JoinColumn(name = "id_photo")
     private Photo logo;
@@ -106,13 +107,14 @@ public class Fournisseur extends Personne {
         this.numeroIdentificationEntreprise = numeroIdentificationEntreprise;
     }
 
-  /*  public Photo getLogo() {
+  public Photo getLogo() {
         return logo;
     }
 
     public void setLogo(Photo logo) {
         this.logo = logo;
-    }*/
+    }
+    
 
     public Statut getStatut() {
         return statut;

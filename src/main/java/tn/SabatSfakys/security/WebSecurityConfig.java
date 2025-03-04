@@ -64,9 +64,10 @@ public class WebSecurityConfig {
         //  .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
           .authorizeHttpRequests(auth -> 
-              auth.requestMatchers("/api/auth/**").permitAll()  // Public
+              auth.requestMatchers("/api/auth/**").permitAll()
                   .requestMatchers("/api/test/**").permitAll()  // Public
-                  //.requestMatchers("/fournisseur/**").hasAuthority("ROLE_ADMIN") 
+                  .requestMatchers("/category/**").permitAll() 
+                  .requestMatchers("/article/**").permitAll() 
                   .requestMatchers("/uploadFile").permitAll()  // Public
                   .requestMatchers("/files/**").permitAll() // 
                   .requestMatchers("/photo").permitAll()

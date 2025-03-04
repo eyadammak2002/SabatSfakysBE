@@ -61,7 +61,7 @@ private Category category;
 @OneToMany(mappedBy = "article", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 private List<Photo> photos = new ArrayList<>();
 
- @JsonIgnore // Empêche la boucle infinie en JSON
+@JsonIgnore // Empêche la boucle infinie en JSON
  @ManyToMany(mappedBy = "articles") // Relation bidirectionnelle
  private List<Pack> packs;
  
